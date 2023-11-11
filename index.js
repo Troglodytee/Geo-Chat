@@ -1,17 +1,4 @@
-const fs = require('fs');
-const http = require('http');
 const WebSocket = require('ws');
-
-
-const html = fs.readFileSync('./index.html', 'utf8');
-
-http.createServer((req, res) => {
-    if (req.url === '/') {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(html);
-    }
-}).listen(3000, '127.0.0.1');
-
 
 function degreesToRadians(a) {
     return a*Math.PI/180;
@@ -43,8 +30,7 @@ class Client {
     }
 }
 
-
-const server = new WebSocket.Server({port: 3001});
+const server = new WebSocket.Server({port: 3000});
 var clientId = 0;
 
 let clients = [];
@@ -98,20 +84,4 @@ server.on('connection', (socket) => {
     });
 });
 
-// let sockets = [];
-// server.on('connection', (socket) => {
-//     sockets.push(socket);
-//     socket.on('message', (msg) => {
-//         msg = JSON.parse(''+msg);
-//         console.log(msg);
-//         console.log(msg.mode, msg.message);
-//         // sockets.forEach(s => s.send(msg));
-//     });
-//     socket.on('close', () => {
-//         sockets = sockets.filter(s => s !== socket);
-//     });
-// });
-
 console.log("Started");
-
-// https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/String/replace
